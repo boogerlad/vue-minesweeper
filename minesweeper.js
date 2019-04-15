@@ -13,7 +13,7 @@ class Grid {
 		this.tiles = new Array(vertical * horizontal);
 		this.bombs = Math.min(bombs, this.tiles.length);
 		this.hidden = this.tiles.length;
-		this.gameActive = true;
+		this.gameOver = false;
 		//populate the beginning of the array with bombs
 		for(let i = 0; i < this.bombs; ++i) {
 			this.tiles[i] = new Tile(9);
@@ -62,7 +62,7 @@ class Grid {
 		}
 	}
 	reveal(row, column) {
-		if(this.gameActive) {
+		if(!this.gameOver) {
 			this.actuallyReveal(this.two2one(row, column));
 		}
 	}
@@ -73,17 +73,17 @@ class Grid {
 			tile.revealed = true;
 			if(--this.hidden === this.bombs) {
 				alert("you win");
-				this.gameActive = false;
+				this.gameOver = true;
 			} else if(tile.bombCount === 9) {
 				alert("game over");
-				this.gameActive = false;
+				this.gameOver = true;
 			} else if(tile.bombCount === 0) {
 				this.adjacent(...this.one2two(index), this.actuallyReveal.bind(this));
 			}
 		}
 	}
 	flag(row, column) {
-		if(this.gameActive) {
+		if(!this.gameOver) {
 			let tile = this.tiles[this.two2one(row, column)];
 			if(!tile.revealed) {
 				tile.flagged = !tile.flagged;

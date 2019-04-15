@@ -72,14 +72,14 @@ class Grid {
 		let tile = this.tiles[index];
 		if(!tile.revealed && !tile.flagged) {
 			tile.revealed = true;
-			if(--this.hidden === this.bombs) {
-				alert("you win");
-				this.gameOver = true;
-			} else if(tile.bombCount === 9) {
+			if(tile.bombCount === 9) {
 				alert("game over");
 				for(let i = 0; i < this.tiles.length; ++i) {
 					this.tiles[i].revealed = true;
 				}
+				this.gameOver = true;
+			} else if(--this.hidden === this.bombs) {
+				alert("you win");
 				this.gameOver = true;
 			} else if(tile.bombCount === 0) {
 				this.adjacent(...this.one2two(index), this.actuallyReveal.bind(this));

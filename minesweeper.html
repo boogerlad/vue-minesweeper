@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Minesweeper</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<style>
+			td {
+				border-style: inset;
+				width: 3em;
+				height: 3em;
+				text-align: center;
+				border-color: black;
+			}
+			.hidden {
+				color: transparent;
+				background-color: gray;
+			}
+			.tile1:before {
+				content: "1";
+			}
+			.tile2:before {
+				content: "2";
+			}
+			.tile3:before {
+				content: "3";
+			}
+			.tile4:before {
+				content: "4";
+			}
+			.tile5:before {
+				content: "5";
+			}
+			.tile6:before {
+				content: "6";
+			}
+			.tile7:before {
+				content: "7";
+			}
+			.tile8:before {
+				content: "8";
+			}
+			.tile9:before {
+				content: "💣";
+			}
+			.flag:before {
+				content: "⚑";
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<label>Length<input v-model.number="length" type="number" min="0"></label>
+			<label>Width<input v-model.number="width" type="number" min="0"></label>
+			<label>Number of bombs<input v-model.number="bombCount" type="number" min="0"></label>
+			<table cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr v-for="(n, i) in length">
+						<td v-for="(m, j) in width" v-bind:class="[game.tiles[i * game.horizontal + j].flagged ? 'flag' : game.tiles[i * game.horizontal + j].revealed ? 'tile' + game.tiles[i * game.horizontal + j].bombCount : 'hidden']" @contextmenu.prevent="game.flag(i, j); $forceUpdate();" @click="game.reveal(i, j); $forceUpdate();"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script src="minesweeper.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			let app = new Vue({
+				el: "#app",
+				data: {
+					length: 0,
+					width: 0,
+					bombCount: 0
+				},
+				computed: {
+					game: function() {
+						return new Grid(this.length, this.width, this.bombCount);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

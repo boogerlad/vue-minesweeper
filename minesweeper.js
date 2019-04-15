@@ -49,6 +49,7 @@ class Grid {
 		return row * this.horizontal + column;
 	}
 	//can pass in a function to apply function to all tiles adjacent to row, column
+	//bounds checking important here! imagine adjacent of corner. would have negative / non existent indices!
 	adjacent(row, column, f) {
 		let maxRow = Math.min(this.vertical, row + 2);
 		let maxColumn = Math.min(this.horizontal, column + 2);

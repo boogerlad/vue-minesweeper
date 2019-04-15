@@ -13,7 +13,6 @@
 				border-color: black;
 			}
 			.hidden {
-				color: transparent;
 				background-color: gray;
 			}
 			.tile1:before {
@@ -53,6 +52,7 @@
 			<label>Length<input v-model.number="length" type="number" min="0"></label>
 			<label>Width<input v-model.number="width" type="number" min="0"></label>
 			<label>Number of bombs<input v-model.number="bombCount" type="number" min="0"></label>
+			<button @click="++length; --length;">new game</button>
 			<table cellpadding="0" cellspacing="0">
 				<tbody>
 					<tr v-for="(n, i) in length">

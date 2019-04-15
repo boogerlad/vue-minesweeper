@@ -61,6 +61,7 @@ class Grid {
 			}
 		}
 	}
+	//bounds checking not necessary for reveal and flag because row and column are given by ui click, which will always be valid
 	reveal(row, column) {
 		if(!this.gameOver) {
 			this.actuallyReveal(this.two2one(row, column));
@@ -76,6 +77,9 @@ class Grid {
 				this.gameOver = true;
 			} else if(tile.bombCount === 9) {
 				alert("game over");
+				for(let i = 0; i < this.tiles.length; ++i) {
+					this.tiles[i].revealed = true;
+				}
 				this.gameOver = true;
 			} else if(tile.bombCount === 0) {
 				this.adjacent(...this.one2two(index), this.actuallyReveal.bind(this));
